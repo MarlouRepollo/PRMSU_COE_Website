@@ -1,0 +1,1839 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+/* Global Tags */
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: rgb(35, 35, 85);
+}
+
+span {
+  font-size: 0.9rem;
+  color: #757373;
+}
+
+h6 {
+  font-size: 1.1rem;    
+  color: rgb(24, 24, 49);
+}
+
+/* Base styles for navigation */
+nav {
+    position: fixed;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1vw 8vw;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000; /* Ensure nav is on top */
+}
+
+.navigation {
+    display: none; /* Hide by default */
+    transition: transform 0.3s ease-in-out, opacity 0.3s;
+
+}
+
+.navigation.active {
+    display: flex; /* Show when active */
+    flex-direction: column; /* Stack items vertically */
+    opacity: 1;
+    pointer-events: auto;
+}
+
+
+.nav_close {
+    z-index: 1100; /* Ensure close icon is above other elements */
+}
+
+
+.nav_logo,
+.nav_burger,
+.nav_close {
+    color: var(--white-color);
+}
+
+.nav_toggle {
+    position: absolute;
+    top: 1rem; /* Adjust top distance */
+    right: 1.5rem; /* Align to the right */
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    z-index: 1100;
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    background-color: transparent; /* Transparent background */
+}
+
+.nav_burger,
+.nav_close {
+    position: absolute;
+    font-size: 1.5rem; /* Ensure both icons are the same size */
+    color: #333;
+    inset: 0; /* Center within parent */
+    margin: auto; /* Center the icon */
+    cursor: pointer;
+    transition: opacity 0.3s ease, transform 0.3s ease; /* Smooth transitions */
+}
+
+.nav_close {
+    opacity: 0;
+    transform: scale(0.9); /* Slightly shrink */
+    pointer-events: none; /* Disable interaction when hidden */
+}
+
+/* Toggle show icon styles */
+.show-icon .nav_burger {
+    opacity: 0;
+    transform: scale(0.9); /* Slightly shrink */
+    pointer-events: none;
+}
+
+.show-icon .nav_close {
+    opacity: 1;
+    transform: scale(1); /* Restore to normal size */
+    pointer-events: auto; /* Enable interaction */
+}
+
+.search-container {
+    position: relative;
+}
+
+.search-icon {
+    font-size: 24px;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    color: #333;
+    transition: transform 0.3s ease;
+}
+
+.search-bar {
+    display: none;
+    padding: 8px 12px;
+    font-size: 16px;
+    position: absolute;
+    top: 35px;
+    right: 0;
+    width: 200px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    opacity: 0;
+    visibility: hidden;
+}
+
+/* Show search bar when active */
+.search-bar.active {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+}
+
+.search-bar:focus {
+    outline: none;
+    border-color: #ff5e00;
+}
+
+/* Output container for search results */
+.search-output {
+    position: absolute;
+    top: 75px;
+    right: 0;
+    width: 200px;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    max-height: 150px;
+    overflow-y: auto;
+    display: none;
+    z-index: 100;
+}
+
+/* Style individual search result items */
+.search-output .result-item {
+    padding: 8px 12px;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+}
+
+.search-output .result-item:hover {
+    background-color: #f5f5f5;
+}
+
+nav img {
+    width: 64px;
+    cursor: pointer;
+}
+
+nav .navigation ul {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+nav .navigation ul li {
+    list-style: none;
+    margin-left: 30px;
+}
+
+nav .navigation ul li a {
+    color: #333;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    transition: 0.3s ease;
+}
+
+nav .navigation ul li a:hover {
+    color: #ff5e00;
+}
+
+nav .navigation ul li {
+    position: relative;
+}
+
+nav .navigation ul li .dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 0;
+    list-style: none;
+    z-index: 1001; /* Ensure dropdown is above other elements */
+}
+
+nav .navigation ul li:hover .dropdown {
+    display: block;
+}
+
+nav .navigation ul li .dropdown li {
+    width: 150px;
+    padding: 10px;
+}
+
+nav .navigation ul li .dropdown li a {
+    color: #333;
+    font-size: 14px;
+    font-weight: 400;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.3s;
+}
+
+nav .navigation ul li .dropdown li a:hover {
+    background-color: #ff5e00; /* Highlight dropdown item on hover */
+    color: #fff; /* Change text color on hover */
+}
+
+/* Mobile styles */
+/* Mobile styles */
+/* Mobile styles */
+@media (max-width: 768px) {
+    /* Adjust navigation container */
+    .navigation {
+        display: none; /* Hide by default */
+        position: fixed; /* Fixed position for overlay */
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(255, 255, 255, 0.95); /* Semi-transparent background */
+        flex-direction: column;
+        padding: 2rem; /* Add more padding for mobile */
+        box-shadow: none; /* Remove shadow */
+        transition: transform 0.3s ease-in-out;
+        transform: translateY(-100%); /* Initially off-screen */
+    }
+
+    .navigation.active {
+        display: flex; /* Show when active */
+        transform: translateY(0); /* Slide down */
+    }
+
+    .nav_toggle {
+        display: block; /* Ensure toggle is visible */
+        position: absolute; /* Fix position of toggle */
+        top: 1rem; /* Adjust top distance */
+        right: 1.5rem; /* Align to the right */
+        z-index: 1100; /* Make sure the toggle is on top */
+    }
+
+    .nav_burger {
+        display: block; /* Show burger icon */
+        color: #333; /* Ensure burger icon is visible */
+        background-color: rgba(255, 255, 255, 0.8); /* Light background for contrast */
+        border-radius: 50%; /* Rounded shape for the burger icon */
+        padding: 0.5rem; /* Add padding for better touch target */
+        font-size: 1.8rem; /* Ensure it's large enough for easy tapping */
+        cursor: pointer; /* Pointer cursor */
+    }
+
+    .nav_close {
+        display: block; /* Show close icon */
+        font-size: 2rem; /* Larger close icon */
+        margin-bottom: 1rem; /* Space below close icon */
+        cursor: pointer; /* Pointer cursor for close icon */
+        color: #333; /* Ensure close icon is visible */
+    }
+
+    /* Mobile navigation list styling */
+    nav .navigation ul {
+        flex-direction: column; /* Stack items vertically */
+        width: 100%; /* Full width for the menu */
+        list-style: none; /* Remove default list style */
+        padding: 0; /* Remove default padding */
+    }
+
+    nav .navigation ul li {
+        margin: 1rem 0; /* Space between items */
+        font-size: 1.5rem; /* Increase font size for readability */
+    }
+
+    nav .navigation ul li a {
+        text-decoration: none; /* Remove underline */
+        color: #333; /* Dark text color */
+        padding: 1rem; /* Add padding for touch targets */
+        border-radius: 5px; /* Rounded corners */
+        transition: background-color 0.2s; /* Smooth background transition */
+    }
+
+    nav .navigation ul li a:hover {
+        background-color: #f0f0f0; /* Light background on hover */
+    }
+
+    nav .navigation ul li .dropdown {
+        position: static; /* Change to static for mobile */
+        width: 100%; /* Full width for dropdown */
+        box-shadow: none; /* Remove shadow for dropdown */
+    }
+
+    nav .navigation ul li .dropdown li {
+        padding: 0.5rem 1rem; /* Increase padding for dropdown items */
+    }
+
+    /* Position search icon below the navigation bar */
+    .search-container {
+        position: fixed;
+        top: 28.4rem; /* Adjust to be just below the navigation bar */
+        left: 50%; /* Center horizontally */
+        transform: translateX(-50%); /* Center horizontally */
+        z-index: 1000; /* Ensure search icon is above other elements */
+    }
+
+    /* Search icon styling */
+    .search-icon {
+        font-size: 24px;
+        cursor: pointer;
+        color: #333;
+        transition: transform 0.3s ease;
+    }
+
+    .search-bar {
+        display: none;
+        padding: 8px 12px;
+        font-size: 16px;
+        position: absolute;
+        top: 35px;
+        right: 0;
+        width: 200px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    /* Show search bar when active */
+    .search-bar.active {
+        display: block;
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+
+/* Desktop styles */
+@media (min-width: 769px) {
+    .nav_toggle {
+        display: none; /* Hide toggle button on desktop */
+    }
+
+    .navigation {
+        display: flex; /* Show navigation items */
+        flex-direction: row; /* Horizontal layout */
+    }
+
+    .navigation ul {
+        flex-direction: row; /* Ensure horizontal layout */
+    }
+
+    .navigation ul li {
+        margin-left: 30px; /* Space between items */
+    }
+
+    nav .navigation div {
+        margin-left: 30px; /* Space between items */
+    }
+}
+
+
+
+/* HOME*/
+
+#home{
+    background-image: linear-gradient(rgba(9, 5, 54, 0.3),rgba(5, 4, 46, 0.7)),url("img/SELB.jpg");
+    width: 100%;
+    height: 50vh;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding-top: 40px;
+    padding-bottom: 10px;
+    color: #fff;
+    padding-top: 50px;
+}
+
+#home h2{
+    color: #fff;
+    font-size: 2.2rem;
+    letter-spacing: 1px;
+}
+
+#home p{
+    width: 50%;
+    color: #fff;
+    font-size: 0.9rem;
+    line-height: 25px;
+    letter-spacing: 1px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+
+#home .btn{
+    margin-top: 10px;
+}
+
+#home a:hover{
+    background-color: #ff5e00;
+    color: #fff;
+    transition: 0.3s ease;
+}
+
+#home a{
+    text-decoration: none;
+    font-size: 0.9rem;
+    color: #fff;
+    border: 2px solid #fff;
+    padding: 13px 50px;
+    border-radius: 50px;
+    transition: 0.3s ease;
+}
+
+
+
+/* featue*/
+.feature-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    width: 100%;
+    background-color: #fff;
+    border-radius: 8px;
+}
+
+.feature-title {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.feature-content {
+    font-size: 18px;
+    font-style: italic;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+
+.feature {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.iso-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 50px;
+    
+}
+
+.iso-img img {
+    max-width: 70%;
+    border: 2px solid #007ACC;
+    border-radius: 5px;
+}
+
+
+/* ORGANIZATION*/
+
+.org-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    width: 100%;
+    background-color: #fbf2d5;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.org-title {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.org-content {
+    font-size: 18px;
+    font-style: italic;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+
+.organization {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+
+.org-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.org-img img {
+    max-width: 30%;
+    border: 2px solid #ffa952;
+    border-radius: 5px;
+}
+
+/* Mobile view adjustments */
+@media (max-width: 768px) {
+    .org-img img {
+        max-width: 100%;
+        height: auto;
+        object-fit: cover; /* Ensures the image fits within the dimensions */
+    }
+}
+
+
+/* Article*/
+
+.Article-container {
+    display: grid;
+    grid-template-columns: 1fr; /* Single column */
+    grid-template-rows: repeat(2, auto); /* Two rows, height adjusts based on content */
+    gap: 20px; /* Space between rows */
+    max-width: 100%;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-top: 20px;
+    width: 100%;
+}
+
+.article {
+    display: grid; /* Grid layout for article content */
+    grid-template-columns: auto 1fr; /* Two columns: image (auto) and text (flexible) */
+    gap: 20px; /* Space between image and text */
+    background-color: white;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 8px;
+    align-items: center; /* Align content vertically */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for articles */
+}
+
+.article img {
+    max-width: 150px;
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 8px;
+}
+
+.content {
+    max-width: 600px; /* Limit text width for readability */
+}
+
+.title {
+    font-weight: bold;
+    font-size: 18px; /* Adjust title font size */
+    margin: 0; /* Remove default margin */
+}
+
+.description {
+    color: #555;
+    font-size: 14px; /* Adjust description font size */
+    line-height: 1.5; /* Improve readability */
+}
+
+
+  /*footer*/
+
+  footer {
+    background-image: url('img/footer.jpg'); /* Replace with your background image path */
+    background-size: 100%;
+    background-position: center;
+    padding: 20px;
+    text-align: center;
+    color: white;
+    position: relative;
+}
+
+.footer-content {
+    background-color: rgba(0, 0, 0, 0.6); /* Adds transparency */
+    padding: 20px;
+    border-radius: 8px;
+    display: inline-block;
+}
+
+.footer-content p {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.footer-icons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.footer-icons .icon {
+    display: flex;
+    align-items: left;
+    text-decoration: none;
+}
+
+.footer-icons .icon-image {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    transition: transform 0.3s;
+}
+
+.footer-icons .icon-image:hover {
+    transform: scale(1.1); /* Slight zoom on hover */
+}
+
+.phone-icon {
+    font-size: 16px;
+    color: #ffffff;
+    padding: 8px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transition: background-color 0.3s;
+}
+
+.phone-icon:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Instruction */
+
+.featins {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    background-color: #f5f5f5;
+}
+
+.feature-ins img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 50px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+    max-width: 100%;
+    height: auto;
+}
+
+
+/* CO feat*/
+
+.featCO {
+    width: 100%;
+    max-width: 1300px; /* Use the full available width while centering */
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.breadcrumb {
+    font-size: 14px;
+    margin-bottom: 20px;
+    padding: 10px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.breadcrumb a {
+    color: #ff7f50;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.header {
+    background-color: #ff7f50;
+    padding: 30px 0;
+    color: white;
+    text-align: center;
+    border-radius: 5px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: white;
+}
+
+.content {
+    display:flex;
+    position: relative; 
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Flexible layout */
+    gap: 20px;
+    padding: 10px; /* Add padding to avoid content sticking to edges */
+    text-align: center;
+    max-width: 1300px; /* Use the full available width while centering */
+    margin: 0 auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+    transform: translateY(0); /* Initial state */
+    overflow-y: scroll; /* Enable scrolling */
+    overflow-x: hidden; /* Hide horizontal scrollbar */
+    overflow-y: auto; /* Enable scrolling */
+    overflow-x: hidden; /* Hide horizontal scrollbar */
+    scrollbar-width: thin; /* Add thin scrollbar */
+    scrollbar-color: #ff7f50 #ffffff; /* Change color of scrollbar */
+    scroll-behavior: smooth; /* Smooth scrolling */
+    scroll-padding-right: 10px; /* Add right padding to scrollbar */
+    scroll-padding-left: 10px; /* Add left padding to scrollbar */
+    scroll-padding-top: 10px; /* Add top padding to scrollbar */
+    scroll-padding-bottom: 10px; /* Add bottom padding to scrollbar */
+    overflow-x: auto; /* Enable scrolling */
+    scrollbar-width: thin; /* Add thin scrollbar */
+    scrollbar-color: #ff7f50 #ffffff; /* Change color of scrollbar */
+    scroll-behavior: smooth; /* Smooth scrolling */
+    scroll-padding-right: 10px; /* Add right padding to scrollbar */
+    scroll-padding-left: 10px; /* Add left padding to scrollbar */
+    scroll-padding-top: 10px; /* Add top padding to scrollbar */
+    scroll-padding-bottom: 10px; /* Add bottom padding to scrollbar */
+}
+
+.department {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+    text-align: center;
+}
+
+.department:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.department h2 {
+    color: rgb(35, 35, 85);
+    margin-bottom: 15px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.department ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.department ul ul {
+    margin-top: 10px;
+    padding-left: 15px;
+}
+
+.department ul li {
+    margin-bottom: 15px;
+}
+
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 14px;
+    color: #ff7f50;
+    border: 2px solid #ff7f50;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 25px;
+    background-color: transparent;
+    transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+    font-weight: bold;
+    margin-bottom: 10px;
+    width: 100%; /* Ensure buttons stretch to the container width */
+    box-sizing: border-box;
+}
+
+.button:hover {
+    background-color: #ff7f50;
+    color: white;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 1200px) {
+    .content {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Allow more flexibility */
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .content {
+        grid-template-columns: repeat(2, 1fr); /* Two columns on smaller screens */
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .content {
+        grid-template-columns: 1fr; /* Single column on mobile screens */
+    }
+}
+
+/* Extra Spacing for Buttons */
+.button {
+    margin-bottom: 15px; /* Adjust spacing between buttons */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+
+/*Faculty*/
+
+/* Header Section */
+.header, .sub-header {
+    background-color: #ff7f50;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+}
+
+.section_dean {
+    background-color: rgb(24, 24, 49);
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+}
+
+.header h2, .sub-header h2 {
+    margin: 0;
+    font-size: 24px;
+}
+
+/* Dean Section */
+.dean-section {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: white;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.dean-image {
+    flex: 1;
+    max-width: 150px;
+    margin-right: 20px;
+}
+
+.dean-image img {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.dean-info {
+    flex: 3;
+}
+
+.dean-info h3 {
+    color: #ff7f50;
+    margin-top: 0;
+}
+
+.dean-info p {
+    text-align: justify;
+}
+
+/* Chairperson Section */
+.chairperson {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: white;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.chairperson-image {
+    flex: 1;
+    max-width: 150px;
+    margin-right: 20px;
+}
+
+.chairperson-image img {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.chairperson-info {
+    flex: 3;
+}
+
+.chairperson-info h6 {
+    color: #ff7f50;
+    margin-top: 0;
+}
+
+.chairperson-info p {
+    text-align: justify;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+    .dean-section, .chairperson {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .dean-image, .chairperson-image {
+        margin-bottom: 20px;
+        max-width: 200px;
+    }
+
+    .dean-info, .chairperson-info {
+        text-align: center;
+    }
+}
+
+
+/* Faculty Header */
+.faculty-header {
+    background-color: #ff7f50;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+}
+
+.faculty-header h2 {
+    margin: 0;
+    font-size: 20px;
+}
+
+/* Department Section */
+.department {
+    padding: 20px;
+}
+
+.department h3 {
+    color: #ff7f50;
+    margin-bottom: 20px;
+    font-size: 18px;
+    text-align: center;
+}
+
+.faculty-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    justify-items: center;
+}
+
+.faculty-card {
+    background-color: white;
+    padding: 15px;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.faculty-card img {
+    width: 100%;
+    max-width: 150px;
+    height: auto;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.faculty-card p {
+    margin: 0;
+    color: #333;
+    font-weight: bold;
+}
+
+.faculty-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    header .logo img {
+        height: 50px;
+    }
+
+    header h1 {
+        font-size: 18px;
+    }
+}
+
+/*BSCE Research*/
+.featBSCE {
+    background-color: rgb(24, 24, 49); /* Bright orange for emphasis */
+    height: 150px;
+    padding-top: 75px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Section Title */
+.CE-RESEARCH h1 {
+    text-align: center;
+    font-size: 24px;
+    color: #ffffff;
+    margin-bottom: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* Content Section */
+.BSCE-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+/* Individual Content Block */
+.BSCE-content div {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 100%; /* Full width on small screens */
+    max-width: 400px; /* Adjust max-width for cards */
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+/* Hover Effect on Content Blocks */
+.BSCE-content div:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Title in Content Block */
+.BSCE-content h2 {
+    color: #ff7f50;
+    font-size: 20px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+/* Content Description */
+.civ-content {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+/* Image Styling */
+.civ-img img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .content {
+        flex-direction: column; /* Stack content vertically */
+        padding: 10px;
+    }
+
+    .content div {
+        max-width: 100%; /* Remove max-width restriction */
+    }
+}
+
+
+/*Research main*/
+.featrm {
+    width: 100%;
+    max-width: 1300px; /* Use the full available width while centering */
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.header-rm {
+    background-color: #ff7f50;
+    padding: 30px 0;
+    color: white;
+    text-align: center;
+    border-radius: 5px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.scroll-container {
+    overflow-x: auto; /* Allow horizontal scrolling */
+    display: block; /* Ensure proper scroll behavior */
+    white-space: nowrap; /* Prevent wrapping */
+    margin: 30px auto; /* Center horizontally and add vertical spacing */
+    padding: 0; /* Optional: Adjust as needed */
+}
+
+/* Grid container */
+.content-rm {
+    display: grid; /* Use grid layout */
+    position: relative; 
+    grid-template-columns: repeat(5, 1fr); /* Fixed 5-column layout */
+    gap: 20px; /* Space between items */
+    padding: 10px; /* Padding for the grid */
+    text-align: center;
+    width: max-content; /* Adjust width to fit the content */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    margin: 0; /* Remove the default margin to avoid extra space */
+}
+
+
+.content-rm img {
+    width: 75%; /* Image takes up 75% of the container width */
+    height: 200px; /* Medium height for the image */
+    object-fit: cover;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+.content-rm-2 {
+    display: grid; /* Use grid layout */
+    position: relative; 
+    grid-template-columns: repeat(2, 1fr); /* Fixed 2-column layout */
+    gap: 20px; /* Space between items */
+    padding: 10px; /* Padding for the container */
+    text-align: center;
+    max-width: 1300px; /* Limit the container width */
+    margin: 30px auto; /* Center horizontally and add vertical spacing */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    overflow: hidden; /* Ensure no scrollbars are added */
+}
+
+.content-rm-3 {
+    display: grid; /* Use grid layout */
+    position: relative; 
+    grid-template-columns: repeat(3, 1fr); /* Fixed 2-column layout */
+    gap: 20px; /* Space between items */
+    padding: 10px; /* Padding for the container */
+    text-align: center;
+    max-width: 1300px; /* Limit the container width */
+    margin: 30px auto; /* Center horizontally and add vertical spacing */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    overflow: hidden; /* Ensure no scrollbars are added */
+}
+
+.content-rm-3 img {
+    width: 100%; /* Ensure the image fits the column width */
+    height: auto; /* Fixed height for all images */
+    object-fit: cover; /* Crop image to fill the container */
+    border-radius: 5px; /* Optional: Rounded corners for images */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for images */
+}
+
+
+.department-rm {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+    text-align: center;
+}
+
+.department-rm:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.department-rm h2 {
+    color: rgb(35, 35, 85);
+    margin-bottom: 15px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.department-rm ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.department-rm ul ul {
+    margin-top: 10px;
+    padding-left: 15px;
+}
+
+.department-rm ul li {
+    margin-bottom: 15px;
+}
+
+
+/*Research*/
+.research-section {
+    text-align: center; /* Centers the content inside the section */
+    margin: 20px 0;
+}
+
+.research-section h2 {
+    color: #ff7f50; /* Custom orange color */
+    font-size: 24px; /* Adjusted size for prominence */
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* List Styling */
+.research-list {
+    list-style: none; /* Removes bullet points */
+    padding: 0;
+    margin: 0 auto;
+}
+
+.research-list li {
+    margin-bottom: 15px; /* Adds spacing between list items */
+}
+
+/* Button Styling */
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 14px;
+    color: #ff7f50;
+    border: 2px solid #ff7f50;
+    text-decoration: none;
+    border-radius: 25px;
+    background-color: transparent;
+    transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+    font-weight: bold;
+}
+
+.button:hover {
+    background-color: #ff7f50;
+    color: white;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Button Styling */
+.button-dept {
+    display: inline-block;
+    padding: 8px 16px; /* Adjusted padding for a smaller button */
+    font-size: 12px; /* Slightly smaller font for a more compact appearance */
+    color: #ff7f50;
+    border: 2px solid #ff7f50;
+    text-decoration: none;
+    border-radius: 20px; /* Slightly smaller border-radius for a more rounded look */
+    background-color: transparent;
+    transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+    font-weight: bold;
+}
+
+.button-dept:hover {
+    background-color: #ff7f50;
+    color: white;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+/*CPE Research*/
+.featBSCpE {
+    background-color: rgb(24, 24, 49); /* Bright orange for emphasis */
+    height: 150px;
+    padding-top: 75px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Section Title */
+.CpE-RESEARCH h1 {
+    text-align: center;
+    font-size: 24px;
+    color: #ffffff;
+    margin-bottom: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* Content Section */
+.BSCpE-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+/* Individual Content Block */
+.BSCpE-content div {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 100%; /* Full width on small screens */
+    max-width: 400px; /* Adjust max-width for cards */
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+/* Hover Effect on Content Blocks */
+.BSCpE-content div:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Title in Content Block */
+.BSCpE-content h2 {
+    color: #ff7f50;
+    font-size: 20px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+/* Content Description */
+.cpe-content {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+/* Image Styling */
+.cpe-img img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/*ME Research*/
+.featBSME {
+    background-color: rgb(24, 24, 49); /* Bright orange for emphasis */
+    height: 150px;
+    padding-top: 75px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Section Title */
+.ME-RESEARCH h1 {
+    text-align: center;
+    font-size: 24px;
+    color: #ffffff;
+    margin-bottom: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* Content Section */
+.BSME-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+/* Individual Content Block */
+.BSME-content div {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 100%; /* Full width on small screens */
+    max-width: 400px; /* Adjust max-width for cards */
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+/* Hover Effect on Content Blocks */
+.BSME-content div:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Title in Content Block */
+.BSME-content h2 {
+    color: #ff7f50;
+    font-size: 20px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+/* Content Description */
+.me-content {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+/* Image Styling */
+.me-img img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/*EM Research*/
+.featBSEE {
+    background-color: rgb(24, 24, 49); /* Bright orange for emphasis */
+    height: 150px;
+    padding-top: 75px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Section Title */
+.EE-RESEARCH h1 {
+    text-align: center;
+    font-size: 24px;
+    color: #ffffff;
+    margin-bottom: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* Content Section */
+.BSEE-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+/* Individual Content Block */
+.BSEE-content div {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 100%; /* Full width on small screens */
+    max-width: 400px; /* Adjust max-width for cards */
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+/* Hover Effect on Content Blocks */
+.BSEE-content div:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Title in Content Block */
+.BSEE-content h2 {
+    color: #ff7f50;
+    font-size: 20px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+/* Content Description */
+.ee-content {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+/* Image Styling */
+.ee-img img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/*EE Research*/
+.featBSEM {
+    background-color: rgb(24, 24, 49); /* Bright orange for emphasis */
+    height: 150px;
+    padding-top: 75px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Section Title */
+.EM-RESEARCH h1 {
+    text-align: center;
+    font-size: 24px;
+    color: #ffffff;
+    margin-bottom: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* Content Section */
+.BSEM-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+/* Individual Content Block */
+.BSEM-content div {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 100%; /* Full width on small screens */
+    max-width: 400px; /* Adjust max-width for cards */
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+/* Hover Effect on Content Blocks */
+.BSEM-content div:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Title in Content Block */
+.BSEM-content h2 {
+    color: #ff7f50;
+    font-size: 20px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+/* Content Description */
+.em-content {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+/* Image Styling */
+.em-img img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Extension Section */
+.extension-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 20px;
+    background-color: #ffffff;
+    margin: 20px auto;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    max-width: 1200px;
+}
+
+/* Extension Title */
+.extension-title {
+    color: #ff7f50; /* Bright orange */
+    font-size: 40px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+
+/* Framework Container */
+.framework-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 20px auto;
+    padding: 40px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 1000px;  
+}
+
+/* Framework Image */
+.framework-image {
+    width: 100%;
+    max-width: 900px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+/*accomplishment*/
+
+.accomplishments {
+    background-color: #ff7f50;;
+    padding: 20px;
+    color: white;
+    text-align: left;
+}
+
+.accomplishments h2 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.content-accomplishments {
+    display: flex;
+    align-items: center;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+.content-accomplishments img {
+    width: 150px;
+    height: auto;
+    margin-right: 20px;
+    border-radius: 5px;
+}
+
+.text-accomplishemnt h3 {
+    font-size: 18px;
+    font-weight: normal;
+    color: #333;
+    margin: 0;
+}
+
+/* Reports */
+/* General Container for Reports */
+.Reports {
+    background-color: rgb(24, 24, 49); /* Keep the orange background */
+    padding: 25px; /* Add padding for spacing */
+    color: white;
+    text-align: left;
+    margin-top: 30px; /* Add spacing above the section */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    width: 100%; /* Use full width */
+    box-sizing: border-box; /* Include padding in width calculation */
+}
+
+.Reports h2 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: left;
+    padding-bottom: 12.5px;
+}
+
+/* Inner Content Container */
+.report-accomplishments {
+    background-color: #ffffff; /* White background inside */
+    padding: 20px;
+    border-radius: 8px;
+    color: #333;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    width: 100%; /* Max out the width */
+    box-sizing: border-box; /* Prevent overflow from padding */
+
+}
+
+/* Text Styling */
+.report-accomplishemnt ul {
+    list-style-type: disc;
+    padding-left: 20px; /* Indentation for list items */
+    margin-bottom: 10px;
+}
+
+.report-accomplishemnt ul li {
+    margin-bottom: 8px; /* Space between list items */
+    font-size: 16px; /* Improve readability */
+    color: #333;
+}
+
+.report-accomplishemnt p {
+    margin-top: 10px;
+    font-style: italic;
+    color: #666; /* Softer text color */
+    font-size: 14px;
+}
+
+
+/*history*/
+.feature-container-history {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    width: 100%;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.feat-tit-his2{
+    font-size: 24px;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+.feat-tit-his22{
+    font-size: 24px;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+    background-color:#fbf2d5 ;
+}
+
+
+.feature-content-history{
+    text-indent: 30px; 
+    margin-bottom: 15px;
+    text-align: justify;
+}
+
+.org-container-his {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    width: 100%;
+    background-color: #fbf2d5;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.feature-ins-his img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+    max-width: 100%;
+    height: auto;
+}
+
+.feature-content-history-cap{
+    text-align: center;
+}
+
+.featins-his {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 10px;
+    background-color: #f5f5f5;
+}
